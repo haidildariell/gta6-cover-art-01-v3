@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crimson Coast Cover Lab — GTA-style photo cover maker</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1 id="appTitle">Crimson Coast Cover Lab</h1>
+    <p class="tagline">Turn your photos into a Vice City sunset poster — offline, in your browser.</p>
+  </div>
+  <div class="topActions">
+    <button id="undoBtn" type="button" title="Undo (Ctrl+Z)">Undo</button>
+    <button id="redoBtn" type="button" title="Redo (Ctrl+Y)">Redo</button>
+  </div>
+</header>
+
+<main class="workspace">
+  <section class="previewPane">
+    <div class="canvasWrap">
+      <canvas id="preview" width="960" height="640" aria-label="Live cover preview"></canvas>
+    </div>
+    <p class="hint">Click a panel to select it, then drag the photo inside it to reposition. Drag the zoom slider to crop tighter.</p>
+    <div class="exportRow" id="exportRow"></div>
+    <p class="status" id="exportStatus" aria-live="polite"></p>
+  </section>
+
+  <aside class="controls">
+    <section class="panel" id="photoPanel">
+      <h2>1 · Your photos</h2>
+      <label class="uploadBtn" for="uploadInput">Upload photos…</label>
+      <input id="uploadInput" type="file" accept="image/*" multiple hidden>
+      <div class="sampleRow" id="sampleRow"></div>
+      <div class="photoStrip" id="photoStrip"></div>
+      <p class="count" id="photoCount">0 photos</p>
+      <p class="note">Photos never leave your machine. The four samples are AI-generated; no real person is depicted.</p>
+    </section>
+
+    <section class="panel" id="presetPanel">
+      <h2>2 · One-click presets</h2>
+      <div class="presetRow">
+        <button id="presetPhoto" type="button">Photo Cover</button>
+        <button id="presetHero" type="button">Hero Photo</button>
+        <button id="presetNeon" type="button">Neon Night</button>
+      </div>
+    </section>
+
+    <section class="panel" id="layoutPanel">
+      <h2>3 · Layout</h2>
+      <div class="picker" id="layoutPicker"></div>
+    </section>
+
+    <section class="panel" id="gradePanel">
+      <h2>4 · Grade</h2>
+      <div class="picker" id="gradePicker"></div>
+      <p class="note">Poster Ink is a real halftone: posterized colour plus ink dots sized by each cell's darkness.</p>
+    </section>
+
+    <section class="panel" id="textPanel">
+      <h2>5 · Lettering</h2>
+      <label>Title <input id="titleInput" type="text" value="GOLDEN COAST" maxlength="24"></label>
+      <label>Script subtitle <input id="subtitleInput" type="text" value="summer nights in Leonida" maxlength="48"></label>
+      <label>Badge <input id="badgeInput" type="text" value="LEONIDA 2026" maxlength="20"></label>
+      <label>Tagline <input id="taglineInput" type="text" value="Sunset chasers  •  Neon nights  •  One coast, every story" maxlength="90"></label>
+    </section>
+
+    <section class="panel" id="cropPanel">
+      <h2>6 · Selected panel crop</h2>
+      <div class="panelList" id="panelList"></div>
+      <label>Photo in this panel
+        <select id="panelPhotoSelect">
+          <option value="0">Photo 1</option>
+          <option value="1">Photo 2</option>
+          <option value="2">Photo 3</option>
+          <option value="3">Photo 4</option>
+        </select>
+      </label>
+      <label>Zoom <span id="zoomVal">105%</span>
+        <input id="zoomRange" type="range" min="1" max="2.5" step="0.01" value="1.05">
+      </label>
+      <label>Move left / right
+        <input id="offsetXRange" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+      <label>Move up / down
+        <input id="offsetYRange" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+    </section>
+  </aside>
+</main>
+
+<footer class="foot">
+  <p>Crimson Coast Cover Lab — original art, original lettering. No Rockstar Games logo, artwork or font. Fonts: Anton and Pacifico under the SIL Open Font License. Sample photos generated with an image model for this entry; no real person depicted.</p>
+</footer>
+
+<script type="module" src="src/editor.js"></script>
+</body>
+</html>
